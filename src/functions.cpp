@@ -34,6 +34,8 @@ void parser(string a, vector<char*> &v) //this break up the user input put it in
     char * array2 = new char[a.size()*2]; //array for ;
     char * array3 = new char[a.size()*2]; //array for &&
     char * array4 = new char[a.size()*2]; //array for ||
+    char * array5 = new char[a.size()*2]; //array for (
+    char * array6 = new char[a.size()*2]; //array for )
     strcpy(array, a.c_str());
     //multple array to take care of the diffrent connector the input can have 
     
@@ -52,6 +54,8 @@ void parser(string a, vector<char*> &v) //this break up the user input put it in
     char* connector1 = (char*)";";
     char* connector2 = (char*)"&&";
     char* connector3 = (char*)"||";
+    char* leftParentheses = (char*)"(";
+    char* rightParentheses = (char*)")";
     
     //this first looks for the the ; connector
     char* block;
@@ -145,12 +149,77 @@ void parser(string a, vector<char*> &v) //this break up the user input put it in
     string a3(array4);
     a3.erase(a3.size()-3, 3);
     strcpy(array4, a3.c_str());
+    
+    //=========================================================================
+    
+    char* block4;
+    block4 = strtok(array4, "(");
+    int i3 = 0;
+    while(block4 != NULL)
+    {
+        
+        if(i3 == 0)
+        {
+            strcpy(array5, block4);
+            strcat(array5, " ");
+            strcat(array5, leftParentheses);
+            strcat(array5, " ");
+            block4 = strtok(NULL, "(");
+        }
+        else
+        {
+            strcat(array5, block4);
+            strcat(array5, " ");
+            strcat(array5, leftParentheses);
+            strcat(array5, " ");
+            block4 = strtok(NULL, "(");
+        }
+        i3++;
+    }
+    
+    //this is needed becasue it add an extra connector and spaces
+    string a4(array5);
+    a4.erase(a4.size()-3, 3);
+    strcpy(array5, a4.c_str());
+    
+    //=========================================================================
+    
+    char* block5;
+    block5 = strtok(array5, ")");
+    int i4 = 0;
+    while(block5 != NULL)
+    {
+        
+        if(i4 == 0)
+        {
+            strcpy(array6, block5);
+            strcat(array6, " ");
+            strcat(array6, rightParentheses);
+            strcat(array6, " ");
+            block5 = strtok(NULL, ")");
+        }
+        else
+        {
+            strcat(array6, block5);
+            strcat(array6, " ");
+            strcat(array6, rightParentheses);
+            strcat(array6, " ");
+            block5 = strtok(NULL, ")");
+        }
+        i4++;
+    }
+    
+    //this is needed becasue it add an extra connector and spaces 
+    string a5(array6);
+    a5.erase(a5.size()-3, 3);
+    strcpy(array6, a5.c_str());
+    //cout << a5 << endl;
 
     
     //this then looks for the spaces in the input
     //========================================================================
     char* block3;
-    block3 = strtok(array4, " ");
+    block3 = strtok(array6, " ");
     while(block3 != NULL)
     {
         v.push_back(strdup(block3));
@@ -168,6 +237,8 @@ void parser(string a, vector<char*> &v) //this break up the user input put it in
     delete[] array2;
     delete[] array3;
     delete[] array4;
+    delete[] array5;
+    delete[] array6;
     //delete the array so no memory leaks are present
     
 }
@@ -215,4 +286,32 @@ int find_barbar_connector(vector<char*> c)
         }
     }
     return third_connetor_found;
+}
+
+int find_leftParentheses(vector<char*> c)
+{
+    string leftParentheses1 = "(";
+    int leftParentheses_found = 0;
+    for(unsigned int i = 0; i < c.size() - 1; i++)
+    {
+        if(strcmp(c.at(i),(char*)leftParentheses1.c_str()) == 0)
+        {
+            leftParentheses_found++;
+        }
+    }
+    return leftParentheses_found;
+}
+
+int find_rightParentheses(vector<char*> c)
+{
+    string rightParentheses1= ")";
+    int rightParentheses_found = 0;
+    for(unsigned int i = 0; i < c.size() - 1; i++)
+    {
+        if(strcmp(c.at(i),(char*)rightParentheses1.c_str()) == 0)
+        {
+            rightParentheses_found++;
+        }
+    }
+    return rightParentheses_found;
 }

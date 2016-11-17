@@ -21,5 +21,7 @@ void parser(string, vector<char*>&); // breaks up the user input and put in in v
 int find_semi_connector(vector<char*>); // Look for ";" in user input, return how many are found
 int find_andand_connector(vector<char*>); // Look for "&&" in user input, return how many are found
 int find_barbar_connector(vector<char*>); // Look for "||" in user input, return how many are found
+int find_leftParentheses(vector<char*>); // Look for "(" in the user input, return how many are found
+int find_rightParentheses(vector<char*>); // Look for ")" in the user input, return how many are found
 
 #endif

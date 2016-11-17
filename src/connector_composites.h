@@ -26,5 +26,38 @@ class BarBar : public Basecmd
 	int execute();
 };
 
+class parentAndAnd : public Basecmd
+{
+	private:
+	Basecmd* leftchild;
+	Basecmd* rightchild;
+	
+	public:
+	parentAndAnd(Basecmd* l, Basecmd* r);
+	int execute();
+};
+
+class parentBarBar : public Basecmd
+{
+	private:
+	Basecmd* leftchild;
+	Basecmd* rightchild;
+	
+	public:
+	parentBarBar(Basecmd* l, Basecmd* r);
+	int execute();
+};
+
+class parentsimicolon : public Basecmd
+{
+	private:
+	Basecmd* leftchild;
+	Basecmd* rightchild;
+	
+	public:
+	parentsimicolon(Basecmd* l, Basecmd* r);
+	int execute();
+};
+
 
 #endif
