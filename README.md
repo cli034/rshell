@@ -19,11 +19,11 @@ Commented command is also a valid input, but it will not perform any action to t
 
 The program can also handle the command test with or without flags "-e", "-d", and "-f". "-e" checks if file/directory exists, "-d" checks if the file/directory exists and is a directory, and "-f" checks if the file/directory exists and is a regular file. The program will print out (TRUE) or (FALSE) depending on if the file/directory is found. Using square brackets is an alternative way of using test command. For example, "[ -e file/directory ]" will be a valid input. If no flags are being inputted, the program will set "-e" to a default flag for the command. The features of using parentheses as precedence operators is also implemented in the program, it is used to change the precedence of the returns of commands, connectors, and chain of connectors. For example, "(echo A && echo B) || (echo C && echo D)" the program will execute (echo A && echo B) then decide if it should execute the rest of the commands based on the execution.
 
+New features has been updated to the program. The program can now use the command cd to change directory. For example "cd" to direct to home, "cd -" to switch back and forth of directory, "cd .." to go back to previous dircectory. This command can be used with other connectors and commands such as (echo hello && cd).
 
 
 LIST OF KNOWN BUGS:
 
-- Commands that are built-in to bash will not work (Ex. cd)
 - a single line command that is followed by the connecter ";", and with a white space behind will generate segmentation fault
 - any form of single command within a parentheses will not work. (Ex. (echo a))
 - more than two connectors within a parentheses will not work. (Ex. (echo a && echo b && echo c))
