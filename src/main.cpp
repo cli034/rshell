@@ -12,11 +12,19 @@ using namespace std;
 
 int main()
 {
+    //int count = 0;
     //this is an infinite loop to allow user input, until user type "exit"
     for(;;)
     {
         label:
-        // int exit_a = 0;
+        // int exit_a = 0
+        //if(count == 0)
+        //{
+            //setenv("PWD",getenv("HOME"),1);
+           // chdir(getenv("HOME"));
+           // count++;
+        //}
+        cout << getenv("PWD") << " ";
         cout << "$ ";
         string cmd;
         string exit_2 = "exit";

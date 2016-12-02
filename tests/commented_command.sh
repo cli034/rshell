@@ -2,9 +2,9 @@
 
 git clone http://github.com/yourusername/rshell.git
 cd rshell
-git checkout hw3
+git checkout hw2
 make
-bin/rshell
+bin/shell
 
 #comment itself, shouldn't do anything
 ls #test comment

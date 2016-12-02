@@ -28,10 +28,90 @@ int Cmd::execute()
     string flag_1 = "-e";
     string flag_2 = "-f";
     string flag_3 = "-d";
+    string cd_1 = "cd";
+    string back_1 = "-";
     struct stat buf;
     if(strcmp(cmds_to_execute.at(0),(char*)exit_1.c_str()) == 0)
     {
         exit(0);
+    }
+    else if(strcmp(cmds_to_execute.at(0),(char*)cd_1.c_str()) == 0)
+    {
+        if(cmds_to_execute.size() == 3)
+        {
+            if(strcmp(cmds_to_execute.at(1),(char*)back_1.c_str()) == 0)
+            {
+                int a = 0;
+                char* old = getenv("OLDPWD");
+                if(setenv("OLDPWD",getenv("PWD"),1) == -1)
+                {
+                    perror("setenv");
+		    return 1;
+                }
+                if(setenv("PWD",old,1) == -1)
+                {
+                    perror("setenv");
+		    return 1;
+                }
+                
+                a = chdir(getenv("PWD"));
+                if(a == -1)
+                {
+                    perror("chdir");
+		    return 1;
+                }
+		return 0;
+            }
+            else
+            {
+                int a = 0;
+                if(setenv("OLDPWD",get_current_dir_name(),1) == -1)
+                {
+                    perror("setenv");
+		    return 1;
+                }
+                a = chdir(cmds_to_execute.at(1));
+                if(a == -1)
+                {
+                    perror("chdir");
+		    return 1;
+                }
+                else
+                {
+                    if(setenv("PWD",get_current_dir_name(),1) == -1)
+                    {
+                        perror("setenv");
+			return 1;
+                    }
+                }
+		return 0;
+            }
+        }
+        else if(cmds_to_execute.size() == 2)
+        {
+            int a = 0;
+            if(setenv("OLDPWD",get_current_dir_name(),1) == -1)
+            {
+                perror("setenv");
+		return 1;
+            }
+            //setenv("PWD",getenv("HOME"),1);
+            a = chdir(getenv("HOME"));
+            if(a == -1)
+            {
+                perror("chdir");
+		return 1;
+            }
+            else
+            {
+                if(setenv("PWD",getenv("HOME"),1) == 1)
+                {
+                    perror("setenv");
+		    return 1;
+                }
+            }
+	    return 0;
+        }
     }
     else if(strcmp(cmds_to_execute.at(0),(char*)test_1.c_str()) == 0 || (strcmp(cmds_to_execute.at(0),(char*)test_2.c_str()) == 0 && strcmp(cmds_to_execute.at(cmds_to_execute.size()-2),(char*)test_3.c_str()) == 0))
     {
@@ -206,7 +286,7 @@ int Cmd::execute()
             }
             if (WIFEXITED(status))
             {
-                as = WEXITSTATUS(status);
+                 as = WEXITSTATUS(status);
                 //cout << as << endl;
             }
             
