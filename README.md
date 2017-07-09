@@ -7,7 +7,7 @@ PROJECT SUMMARY:
 
 This program mimics the behavior of the command shell prompt. It can perform the same ability as the commands used in
 /bin, such as ls, date, echo. However, built in functions like cd, help...etc is not implemented in this program. In addition,
-this program have implemented its own exig function, so that the program will terminate correctly which user typed in "exit".
+this program have implemented its own exit function, so that the program will terminate correctly which user typed in "exit".
 The program successfully perform signle line command, multiple line command, exit command, and commented command. Generally,
 the systax for input are the same for bash. An example of single line commend will be "echo hello world", then it should
 print out "hello world". There are three different types of connectors avaliable for the user in order to perform a multiple line
